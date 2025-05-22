@@ -10,9 +10,6 @@ import json_numpy as json
 app = FastAPI()
 converter = TokenActionConverter()
 
-# Initialize sglang backend
-sgl.set_default_backend(sgl.RuntimeEndpoint("http://localhost:30000"))
-
 class BatchRequest(BaseModel):
     instruction: str
     image_path: str
@@ -75,4 +72,12 @@ async def process_batch_request(request: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
+    runtime = sgl.Runtime(
+        model_path="openvla/openvla-7b",
+        tokenizer_path="openvla/openvla-7b",
+        disable_cuda_graph=True,
+        disable_radix_cache=True,
+        # chunked_prefill_size=-1,
+    )
+    sgl.set_default_backend(runtime)
     uvicorn.run(app, host="0.0.0.0", port=3200)
