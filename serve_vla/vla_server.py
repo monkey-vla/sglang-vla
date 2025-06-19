@@ -77,6 +77,7 @@ if __name__ == "__main__":
         tokenizer_path="openvla/openvla-7b",
         disable_cuda_graph=True,
         disable_radix_cache=True,
+        random_seed=0,
         # chunked_prefill_size=-1,
     )
     sgl.set_default_backend(runtime)
