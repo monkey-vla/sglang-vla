@@ -6,6 +6,7 @@ import sglang as sgl
 from token2action import TokenActionConverter, image_qa
 from typing import List, Optional
 import json_numpy as json
+import argparse
 
 app = FastAPI()
 converter = TokenActionConverter()
@@ -72,13 +73,16 @@ async def process_batch_request(request: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="FastAPI server with configurable seed")
+    parser.add_argument("--seed", type=int, default=0, help="Random seed for the model (default: 0)")
+    args = parser.parse_args()
+    
     runtime = sgl.Runtime(
         model_path="openvla/openvla-7b",
         tokenizer_path="openvla/openvla-7b",
         disable_cuda_graph=True,
         disable_radix_cache=True,
-        random_seed=0,
-        # chunked_prefill_size=-1,
+        random_seed=args.seed,
     )
     sgl.set_default_backend(runtime)
     uvicorn.run(app, host="0.0.0.0", port=3200)
