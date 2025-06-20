@@ -4,8 +4,9 @@
 </div>
 
 --------------------------------------------------------------------------------
-This repository provides a **serving engine for OpenVLA** and Prismatic VLMs. Our optimized implementation based on SGLang substantially outperforms the vanilla OpenVLA inference pipeline, achieving **lower latency** and **significantly higher throughput** across batch sizes.
+This repository provides a **serving engine for OpenVLA** and other Prismatic-VLM models. Our optimized implementation based on SGLang substantially outperforms the vanilla OpenVLA inference pipeline, achieving **lower latency** and **significantly higher throughput** across batch sizes.
 
+<img src="assets/latency.png" alt="logo" margin="10px"></img>
 
 
 ## 📦 Environment Setup
